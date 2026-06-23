@@ -203,6 +203,13 @@ def main():
     bodies = load_bodies_from_file(CONFIG_FILE, ax)
     system = System(bodies, ax)
 
+    # Set fixed axis limits to encompass all orbits with some padding
+    max_dist = max(np.linalg.norm(b.pos) for b in bodies)
+    padding = 1.2
+    limit = max_dist * padding
+    ax.set_xlim(-limit, limit)
+    ax.set_ylim(-limit, limit)
+
     # Animation parameters
     dt = DEFAULT_DT  # seconds per frame
     paused = False
